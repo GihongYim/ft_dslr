@@ -28,3 +28,13 @@ def std(col):
     var = total / float(num_of_element - 1)
     standard_deviadtion = var ** (0.5)
     return standard_deviadtion
+
+def min(col):
+    if len(col) == 0:
+        return np.NaN
+    min_value = col[0]
+    for element in col:
+        if element < min_value:
+            min_value = element
+    return min_value
+        

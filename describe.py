@@ -31,7 +31,7 @@ def describe(df):
     statistic_df.loc['std'] = std
     min = {}
     for col in numeric_list:
-        min[col] = np.min(df[col])
+        min[col] = statistic.min(df[col])
     statistic_df.loc['min'] = min
     q25 = {}
     for col in numeric_list:
