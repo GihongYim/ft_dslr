@@ -37,4 +37,12 @@ def min(col):
         if element < min_value:
             min_value = element
     return min_value
-        
+
+def max(col):
+    if len(col) == 0:
+        return np.NaN
+    max_value = col[0]
+    for element in col:
+        if element > max_value:
+            max_value = element
+    return max_value

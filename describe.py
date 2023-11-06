@@ -47,7 +47,7 @@ def describe(df):
     statistic_df.loc['75%'] = q75
     max = {}
     for col in numeric_list:
-        max[col] = np.max(df[col])
+        max[col] = statistic.max(df[col])
     statistic_df.loc['max'] = max
     # print(mean)
     return statistic_df
