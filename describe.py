@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-# import statistic
+import statistic
 
 
 def describe(df):
@@ -19,15 +19,15 @@ def describe(df):
     statistic_df = pd.DataFrame(columns=numeric_list)
     count = {}
     for col in numeric_list:
-        count[col] = df.count()[col]
+        count[col] = statistic.count(df[col])
     statistic_df.loc['count'] = count
     mean = {}
     for col in numeric_list:
-        mean[col] = np.mean(df[col])
+        mean[col] = statistic.mean(df[col])
     statistic_df.loc['mean'] = mean
     std = {}
     for col in numeric_list:
-        std[col] = np.std(df[col])
+        std[col] = statistic.std(df[col])
     statistic_df.loc['std'] = std
     min = {}
     for col in numeric_list:
