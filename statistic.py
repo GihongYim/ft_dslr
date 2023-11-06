@@ -8,17 +8,22 @@ def count(col):
     return count
 
 def mean(col):
-    count = 0
+    if len(col) == 0:
+        return np.NaN
+    num_of_element = count(col)
+    if num_of_element == 0:
+        return np.NaN
     total = 0.0
     for element in col:
         if not np.isnan(element):
-            count += 1
             total += element
-    avg = total / float(count)
+    avg = total / float(num_of_element)
     return avg
 
 def std(col):
     num_of_element = count(col)
+    if num_of_element == 0:
+        return np.NaN
     avg = mean(col)
     total = 0.0
     var = 0.0
@@ -30,7 +35,7 @@ def std(col):
     return standard_deviadtion
 
 def min(col):
-    if len(col) == 0:
+    if len(col) == 0:   
         return np.NaN
     min_value = col[0]
     for element in col:
