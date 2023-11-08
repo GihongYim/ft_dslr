@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+import sys
 import pandas as pd
 import numpy as np
 import statistic
@@ -52,3 +55,15 @@ def describe(df):
     # print(mean)
     return statistic_df
     
+    
+def main():
+    try:
+        df = pd.read_csv(sys.argv[1])
+    except Exception as e:
+        print(f"{e}")
+    print(df.describe())
+    print(describe(df))
+    
+
+if __name__ == "__main__":
+    main()
