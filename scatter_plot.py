@@ -37,9 +37,9 @@ def main():
     except Exception as e:
         print(e)
         return 
-    # hogwart_df = {'Gryffindor':None, 'Slytherin':None, 'Ravenclaw':None, 'Hufflepuff':None}
     hogwart_colors = {'Gryffindor': '#ae0001', 'Slytherin':'#2a623d', 'Ravenclaw': '#222f5b', 'Hufflepuff':'#f0c75e'}
-    feature_columns = ["Arithmancy", 
+    feature_columns = ["Best Hand",
+            "Arithmancy", 
             "Astronomy", 
             "Herbology",
             "Defense Against the Dark Arts", 
@@ -56,11 +56,11 @@ def main():
     # for name in hogwart_df:
     #     hogwart_df[name] = df[df['Hogwarts House'] == name]
     #     hogwart_df[name] = df[feature_columns]
-    fig, axs = plt.subplots(len(feature_columns), len(feature_columns))
+    fig, axs = plt.subplots(len(df.columns), len(df.columns))
     row_index, column_index = 0, 0
-    for row_feature in feature_columns:
+    for row_feature in df.columns:
         column_index = 0
-        for column_feature in feature_columns:
+        for column_feature in df.columns:
             if row_feature == column_feature:
                 column_index += 1
                 continue
