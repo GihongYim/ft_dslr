@@ -33,7 +33,6 @@ def main():
         for column in hogwart_name_df[name]:
             plt.subplot(num_of_row, num_of_column, index)
             sns.histplot(hogwart_name_df[name][column], color=colors[name]).set_title(name + ' ' + column)
-            
             index += 1
         hogwart_index += 1
     plt.show()
