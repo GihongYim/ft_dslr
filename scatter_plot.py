@@ -56,11 +56,11 @@ def main():
     # for name in hogwart_df:
     #     hogwart_df[name] = df[df['Hogwarts House'] == name]
     #     hogwart_df[name] = df[feature_columns]
-    fig, axs = plt.subplots(len(df.columns), len(df.columns))
+    fig, axs = plt.subplots(len(feature_columns), len(feature_columns))
     row_index, column_index = 0, 0
-    for row_feature in df.columns:
+    for row_feature in feature_columns:
         column_index = 0
-        for column_feature in df.columns:
+        for column_feature in feature_columns:
             if row_feature == column_feature:
                 column_index += 1
                 continue
