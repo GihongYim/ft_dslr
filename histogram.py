@@ -19,23 +19,32 @@ def main():
     
     print(sys.argv[0])
     df = pd.read_csv(sys.argv[1])
-    hogwart_name = df['Hogwarts House'].unique()
-    hogwart_name_df = {}
+    hogwart = ['Gryffindor', 'Slytherin', 'Ravenclaw', 'Hufflepuff']
     colors = {'Gryffindor':'red', 'Slytherin':'green', 'Ravenclaw':'blue', 'Hufflepuff':'yellow'}
-    for name in hogwart_name:
-        hogwart_name_df[name] = df[df['Hogwarts House'] == name]
-    num_of_row = len(hogwart_name)
-    num_of_column = hogwart_name_df[hogwart_name[0]].shape[1]
-    print(num_of_row, num_of_column)
-    index = 1
-    hogwart_index = 0
-    for name in hogwart_name_df:
-        for column in hogwart_name_df[name]:
-            plt.subplot(num_of_row, num_of_column, index)
-            sns.histplot(hogwart_name_df[name][column], color=colors[name]).set_title(name + ' ' + column)
-            index += 1
-        hogwart_index += 1
+    feature_columns = ["Best Hand",
+            "Arithmancy", 
+            "Astronomy", 
+            "Herbology",
+            "Defense Against the Dark Arts", 
+            "Divination", 
+            "Muggle Studies", 
+            "Ancient Runes", 
+            "History of Magic", 
+            "Transfiguration", 
+            "Potions", 
+            "Care of Magical Creatures",
+            "Charms", 
+            "Flying" 
+    ]
+    fig,axs = plt.subplots(ncols=len(feature_columns))
+    index = 0
+    for column in feature_columns:
+        sns.histplot(data=df, x=column, hue="Hogwarts House",palette=colors, element='poly', ax=axs[index])
+        index += 1
     plt.show()
+    index = 1
+    print(df)
+    
     
     
     
