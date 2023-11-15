@@ -39,7 +39,8 @@ def main():
     fig,axs = plt.subplots(ncols=len(feature_columns))
     index = 0
     for column in feature_columns:
-        sns.histplot(data=df, x=column, hue="Hogwarts House",palette=colors, element='poly', ax=axs[index])
+        # sns.histplot(data=df, x=column, hue="Hogwarts House",palette=colors, element='poly', ax=axs[index])
+        sns.histplot(data=df, x=column, hue="Hogwarts House",palette=colors, ax=axs[index])
         index += 1
     plt.show()
     index = 1
