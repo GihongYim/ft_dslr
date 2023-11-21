@@ -12,13 +12,15 @@ class Logistic_Regression:
     def __init__(self, data, feature_columns):
         self.data = data
         self.feature_columns = feature_columns
+        
 
     def train(self, epoch=1000, lr=0.003):
         train_df = self.data[self.feature_columns]
         train_describe = describe(train_df)
         scaled_df = self.get_scaled_df(train_df, train_describe)
         print(scaled_df)
-        weighs = np.zeros(len(self.feature_columns) + 1)
+        weight = np.zeros(len(feature_columns))
+        
 
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
@@ -27,7 +29,8 @@ class Logistic_Regression:
             column_max = data_description[name]['max']
             scaled_df[name] = min_max_normalize(data[name], column_min, column_max)
         return scaled_df
-
+    
+    
 
     
 
