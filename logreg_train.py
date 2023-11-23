@@ -19,9 +19,7 @@ class Logistic_Regression:
         train_y = self.data[self.answer]
         train_describe = describe(train_x)
         scaled_df = self.get_scaled_df(train_x, train_describe)
-        # print(scaled_df)
-        # print(train_y)
-        self.one_hot_encoding(train_y)
+        encoded_y = self.one_hot_encoding(train_y)
         
         
 
@@ -40,9 +38,7 @@ class Logistic_Regression:
             for col in range(len(self.answer_list)):
                 if train_y[row] == self.answer_list[col]:
                     encoded_column[row][col] = 1
-        
-        for name, code in zip(train_y, encoded_column):
-            print(name, code)
+        return encoded_column
     
 
     
