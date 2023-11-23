@@ -9,20 +9,22 @@ from describe import describe
 from normalize import min_max_normalize
 
 class Logistic_Regression:
-    def __init__(self, data, feature_columns, answer):
+    def __init__(self, data, feature_columns, answer_column):
         self.data = data
-        self.answer = answer
+        self.answer_column = answer_column
         self.feature_columns = feature_columns
         self.answer_list = None 
+
     def train(self, epoch=1000, lr=0.003):
         train_x = self.data[self.feature_columns]
-        train_y = self.data[self.answer]
+        train_y = self.data[self.answer_column]
         train_describe = describe(train_x)
         scaled_df = self.get_scaled_df(train_x, train_describe)
         encoded_y = self.one_hot_encoding(train_y)
+        weights = np.zeros((len(train_y.unique()),len(train_x), len(train_x.columns) + 1))
+        print(weights.shape)
         
         
-
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
         for name in self.feature_columns:
