@@ -7,7 +7,8 @@ import pickle
 from describe import describe
 from normalize import min_max_normalize
 from softmax import softmax
-
+from statistic import mean
+import math
 class Logistic_Regression:
     def __init__(self, data, feature_columns, answer_column):
         self.data = data
@@ -22,7 +23,7 @@ class Logistic_Regression:
         scaled_x = self.get_scaled_df(train_x, train_describe).to_numpy().T
         encoded_y = self.one_hot_encoding(train_y)
         weights = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
-        print(self.predict(weights, scaled_x))
+        self.predict(weights, scaled_x)
         
         
     def get_scaled_df(self, data, data_description):
@@ -43,12 +44,12 @@ class Logistic_Regression:
         return encoded_column
     
     def predict(self, weight, x):
-        h = np.array((weight.shape[1]))
+        h = np.array(np.zeros((weight.shape[0], 1600)))
         x_b = np.r_[x, [np.ones(1600)]]
-        h = np.matmul(weight, x_b)
-        for i in range(len(h)):
-            h[i] = np.matmul(weight[i], x_b)
-        print(softmax(h.T).shape)
+        h = np.matmul(weight, x_b).T
+        for i in range(h.shape[0]):
+            h[i] = softmax(h[i])
+        print(h)
         
         
         
@@ -74,6 +75,12 @@ if __name__ == "__main__":
             "Charms", 
             "Flying" 
         ]
+    data_describe = describe(data)
+    for column in feature_columns:
+        nan_value = mean(data[column])
+        data[column] = data[column].fillna(nan_value)
+            
+            
     answer_column = "Hogwarts House"
     model = Logistic_Regression(data, feature_columns,answer_column)
     model.train()
