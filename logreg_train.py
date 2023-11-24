@@ -23,7 +23,8 @@ class Logistic_Regression:
         scaled_x = self.get_scaled_df(train_x, train_describe).to_numpy().T
         encoded_y = self.one_hot_encoding(train_y)
         weights = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
-        self.predict(weights, scaled_x)
+        z = self.predict(weights, scaled_x)
+        print(z.shape)
         
         
     def get_scaled_df(self, data, data_description):
@@ -44,13 +45,12 @@ class Logistic_Regression:
         return encoded_column
     
     def predict(self, weight, x):
-        h = np.array(np.zeros((weight.shape[0], 1600)))
-        x_b = np.r_[x, [np.ones(1600)]]
+        h = np.array(np.zeros((weight.shape[0], x.shape[1])))
+        x_b = np.r_[x, [np.ones(x.shape[1])]]
         h = np.matmul(weight, x_b).T
         for i in range(h.shape[0]):
             h[i] = softmax(h[i])
-        print(h)
-        
+        return h
         
         
         
