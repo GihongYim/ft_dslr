@@ -16,21 +16,30 @@ class Logistic_Regression:
         self.feature_columns = feature_columns
         self.answer_list = None 
 
-    def train(self, epoch=1000, lr=0.003):
+    def train(self, epochs=1000, lr=0.003):
         train_x = self.data[self.feature_columns]
+        m = train_x.shape[0]
         train_y = self.data[self.answer_column]
         train_describe = describe(train_x)
         scaled_x = self.get_scaled_df(train_x, train_describe).to_numpy().T
+        scaled_x = np.r_[scaled_x, [np.ones(scaled_x.shape[1])]]
         encoded_y = self.one_hot_encoding(train_y)
-        weights = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
-        z = self.predict(weights, scaled_x)
-        print(z.shape)
+        W = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
+        for epoch in range(1, epochs + 1):
+            z = self.predict(W, scaled_x)
+            loss = -1 * encoded_y * np.log(z) + (1 - encoded_y) * np.log(1 - z)
+            cost = sum(sum(loss / m))
+            print(cost)
+            dW = np.matmul((z - encoded_y).T, scaled_x.T) / train_x.shape[0]
+            W = W - lr * dW
+            print(f"{epoch} epoch ")
+        
         
         
         
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
-        for name in self.feature_columns:
+        for name in data.columns:
             column_min = data_description[name]['min']
             column_max = data_description[name]['max']
             scaled_df[name] = min_max_normalize(data[name], column_min, column_max)
@@ -47,8 +56,7 @@ class Logistic_Regression:
     
     def predict(self, weight, x):
         h = np.array(np.zeros((weight.shape[0], x.shape[1])))
-        x_b = np.r_[x, [np.ones(x.shape[1])]]
-        h = np.matmul(weight, x_b).T
+        h = np.matmul(weight, x).T
         for i in range(h.shape[0]):
             h[i] = softmax(h[i])
         return h
