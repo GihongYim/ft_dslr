@@ -9,6 +9,8 @@ from normalize import min_max_normalize
 from softmax import softmax
 from statistic import mean
 import math
+import matplotlib.pyplot as plt
+import seaborn as sns
 class Logistic_Regression:
     def __init__(self, data, feature_columns, answer_column):
         self.data = data
@@ -25,16 +27,29 @@ class Logistic_Regression:
         scaled_x = np.r_[scaled_x, [np.ones(scaled_x.shape[1])]]
         encoded_y = self.one_hot_encoding(train_y)
         W = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
+        cost_history = []
+        precision_history = []
         for epoch in range(1, epochs + 1):
             z = self.predict(W, scaled_x)
             loss = -1 * encoded_y * np.log(z) + (1 - encoded_y) * np.log(1 - z)
             cost = sum(sum(loss / (m * z.shape[1])))
+            cost_history.append(cost)
             dW = np.matmul((z - encoded_y).T, scaled_x.T) / train_x.shape[0]
             W = W - lr * dW
             precision = self.get_precision(z, encoded_y)
+            precision_history.append(precision)
             print(f"{epoch} epoch: cost {cost}, precision {precision}")
-            # break
+        with open('parameter.pickle', 'wb') as f:
+            pickle.dump(W, f)
+            pickle.dump(train_describe, f)
+            pickle.dump(self.feature_columns, f)
+        sns.lineplot({"cost": cost_history, "precision": precision_history})
+        # fig, ax1 = plt.subplots()
         
+        # ax1 = sns.lineplot(cost_history, palette="red")
+        # ax2 = ax1.twinx()
+        # ax2 = sns.lineplot(precision_history, palette="blue")
+        plt.show()
         
         
     def get_scaled_df(self, data, data_description):
