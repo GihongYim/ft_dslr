@@ -16,7 +16,7 @@ class Logistic_Regression:
         self.feature_columns = feature_columns
         self.answer_list = None 
 
-    def train(self, epochs=1000, lr=0.003):
+    def train(self, epochs=2000, lr=0.01):
         train_x = self.data[self.feature_columns]
         m = train_x.shape[0]
         train_y = self.data[self.answer_column]
@@ -28,12 +28,12 @@ class Logistic_Regression:
         for epoch in range(1, epochs + 1):
             z = self.predict(W, scaled_x)
             loss = -1 * encoded_y * np.log(z) + (1 - encoded_y) * np.log(1 - z)
-            cost = sum(sum(loss / m))
-            print(cost)
+            cost = sum(sum(loss / (m * z.shape[1])))
             dW = np.matmul((z - encoded_y).T, scaled_x.T) / train_x.shape[0]
             W = W - lr * dW
-            print(f"{epoch} epoch ")
-        
+            precision = self.get_precision(z, encoded_y)
+            print(f"{epoch} epoch: cost {cost}, precision {precision}")
+            # break
         
         
         
@@ -60,6 +60,16 @@ class Logistic_Regression:
         for i in range(h.shape[0]):
             h[i] = softmax(h[i])
         return h
+    
+    def get_precision(self, z, y):
+        total = 0
+        correct = 0
+        for index in range(z.shape[0]):
+            h = np.argmax(z[index])
+            if y[index][h] == 1.0:
+                correct += 1
+            total += 1
+        return correct / total
         
         
         
