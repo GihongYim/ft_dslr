@@ -27,6 +27,7 @@ class Logistic_Regression:
         print(z.shape)
         
         
+        
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
         for name in self.feature_columns:
