@@ -37,8 +37,8 @@ if __name__ == "__main__":
         ]
     data_describe = describe(data)
     for column in feature_columns:
-        nan_value = mean(data[column])
-        data[column] = data[column].fillna(nan_value)
+        mean_value = mean(data[column])
+        data[column] = data[column].fillna(mean_value)
             
             
     answer_column = "Hogwarts House"
