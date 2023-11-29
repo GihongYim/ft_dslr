@@ -112,8 +112,8 @@ class Logistic_Regression:
             self.data[column] = self.data[column].fillna(mean_value)
         train_x = self.data[self.feature_columns]
         m = train_x.shape[0]
-        scaled_x = self.get_scaled_df(train_x, self.train_describe).to_numpy().T
-        scaled_x = np.r_[scaled_x, [np.ones(scaled_x.shape[1])]]
+        scaled_x = self.get_scaled_df(train_x, self.train_describe).to_numpy()
+        scaled_x = np.c_[scaled_x, np.ones(scaled_x.shape[0])]
         h = self.predict(self.W, scaled_x)
         answer = np.empty(m, dtype='object')
         for index in range(m):
