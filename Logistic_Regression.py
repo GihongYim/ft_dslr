@@ -17,7 +17,9 @@ class Logistic_Regression:
         self.W = None
         self.train_describe = None
 
-    def train(self, epochs=2000, lr=0.01, batch_size=0):
+    def train(self, epochs=2000, lr=0.01, batch_size=300):
+        ## batch_size = 0 -> batch_size = m
+        
         train_x = self.data[self.feature_columns]
         m = train_x.shape[0]
         train_y = self.data[self.answer_column]
@@ -30,26 +32,37 @@ class Logistic_Regression:
         precision_history = []
         if batch_size == 0:
             batch_size = m
-        num_of_bacth = m / batch_size
+        num_of_batch = m // batch_size
         for epoch in range(1, epochs + 1):
-            for i in range(batch_size, m, batch_size):
-                batch = scaled_x[]
-            z = self.predict(self.W, scaled_x)
-            loss = -1 * encoded_y * np.log(z) + (1 - encoded_y) * np.log(1 - z)
-            cost = sum(sum(loss / (m * z.shape[1])))
-            cost_history.append(cost)
-            dW = np.matmul((z - encoded_y).T, scaled_x) / train_x.shape[0]
+            # iteration for batch
+            for i in range(num_of_batch):
+                batch_x = scaled_x[i * batch_size: (i + 1) * batch_size]
+                batch_y = encoded_y[i * batch_size: (i + 1) * batch_size]
+                z = self.predict(self.W, batch_x)
+                loss = -1 * batch_y * np.log(z) + (1 - batch_y) * np.log(1 - z)
+                dW = np.matmul((z - batch_y).T, batch_x) / batch_x.shape[0]
+                self.W = self.W - lr * dW.T
+            # batch remainder
+            batch_x = scaled_x[(num_of_batch - 1) * batch_size:]
+            batch_y = encoded_y[(num_of_batch - 1) * batch_size:]
+            z = self.predict(self.W, batch_x)
+            dW = np.matmul((z - batch_y).T, batch_x) / batch_x.shape[0]
             self.W = self.W - lr * dW.T
-            precision = self.get_precision(z, encoded_y)
+            
+            total_z = self.predict(self.W, scaled_x)
+            loss = -1 * encoded_y * np.log(total_z) + (1 - encoded_y) * np.log(1 - total_z)
+            cost = sum(sum(loss / (scaled_x.shape[0] * total_z.shape[1])))
+            cost_history.append(cost)
+            precision = self.get_precision(total_z, encoded_y)
             precision_history.append(precision)
             print(f"{epoch} epoch: cost {cost}, precision {precision}")
-        with open('parameter.pickle', 'wb') as f:
-            pickle.dump(self.W, f)
-            pickle.dump(self.train_describe, f)
-            pickle.dump(self.feature_columns, f)
-            pickle.dump(self.answer_list, f)
-        sns.lineplot({"cost": cost_history, "precision": precision_history})
-        plt.show()
+        # with open('parameter.pickle', 'wb') as f:
+        #     pickle.dump(self.W, f)
+        #     pickle.dump(self.train_describe, f)
+        #     pickle.dump(self.feature_columns, f)
+        #     pickle.dump(self.answer_list, f)
+        # sns.lineplot({"cost": cost_history, "precision": precision_history})
+        # plt.show()
         
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
