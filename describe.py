@@ -6,7 +6,7 @@ import numpy as np
 import statistic
 
 
-def describe(df):
+def describe(df, include='default'):
     """
     describe main statistic
     
@@ -52,7 +52,19 @@ def describe(df):
     for col in numeric_list:
         max[col] = statistic.max(df[col])
     statistic_df.loc['max'] = max
-    # print(mean)
+    if include == 'all':
+        unique = {}
+        for col in numeric_list:
+            unique[col] = statistic.unique(df[col])
+        statistic_df.loc['unique'] = unique
+        top = {}
+        for col in numeric_list:
+            top[col] = statistic.top(df[col])
+        statistic_df.loc['top'] = top
+        freq = {}
+        for col in numeric_list:
+            freq[col] = statistic.freq(df[col])
+        statistic_df.loc['freq'] = freq
     return statistic_df
     
     
@@ -61,8 +73,8 @@ def main():
         df = pd.read_csv(sys.argv[1])
     except Exception as e:
         print(f"{e}")
-    print(df.describe())
     print(describe(df))
+    print(describe(df, include='all'))
     
 
 if __name__ == "__main__":

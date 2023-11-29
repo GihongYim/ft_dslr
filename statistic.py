@@ -51,3 +51,41 @@ def max(col):
         if element > max_value:
             max_value = element
     return max_value
+
+def unique(col):
+    dict = {}
+    for element in col:
+        if element not in dict.keys():
+            dict[element] = 0
+        dict[element] += 1
+    return len(dict)
+
+def top(col):
+    dict = {}
+    for element in col:
+        if element not in dict.keys():
+            dict[element] = 0
+        dict[element] += 1
+    max_element = None
+    max_count = 0
+    for key in dict.keys():
+        if dict[key] > max_count:
+            max_element = key
+            max_count = dict[key]
+    return max_element
+
+
+def freq(col):
+    dict = {}
+    for element in col:
+        if element not in dict.keys():
+            dict[element] = 0
+        dict[element] += 1
+    max_element = None
+    max_count = 0
+    for key in dict.keys():
+        if dict[key] > max_count:
+            max_element = key
+            max_count = dict[key]
+    return max_count
+
