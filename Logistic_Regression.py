@@ -17,24 +17,29 @@ class Logistic_Regression:
         self.W = None
         self.train_describe = None
 
-    def train(self, epochs=2000, lr=0.01):
+    def train(self, epochs=2000, lr=0.01, batch_size=0):
         train_x = self.data[self.feature_columns]
         m = train_x.shape[0]
         train_y = self.data[self.answer_column]
         self.train_describe = describe(train_x)
-        scaled_x = self.get_scaled_df(train_x, self.train_describe).to_numpy().T
-        scaled_x = np.r_[scaled_x, [np.ones(scaled_x.shape[1])]]
+        scaled_x = self.get_scaled_df(train_x, self.train_describe).to_numpy()
+        scaled_x = np.c_[scaled_x, np.ones(scaled_x.shape[0])]
         encoded_y, self.answer_list = self.one_hot_encoding(train_y)
-        self.W = np.random.rand(len(self.answer_list), len(self.feature_columns) + 1)
+        self.W = np.random.rand(len(self.feature_columns) + 1, len(self.answer_list))
         cost_history = []
         precision_history = []
+        if batch_size == 0:
+            batch_size = m
+        num_of_bacth = m / batch_size
         for epoch in range(1, epochs + 1):
+            for i in range(batch_size, m, batch_size):
+                batch = scaled_x[]
             z = self.predict(self.W, scaled_x)
             loss = -1 * encoded_y * np.log(z) + (1 - encoded_y) * np.log(1 - z)
             cost = sum(sum(loss / (m * z.shape[1])))
             cost_history.append(cost)
-            dW = np.matmul((z - encoded_y).T, scaled_x.T) / train_x.shape[0]
-            self.W = self.W - lr * dW
+            dW = np.matmul((z - encoded_y).T, scaled_x) / train_x.shape[0]
+            self.W = self.W - lr * dW.T
             precision = self.get_precision(z, encoded_y)
             precision_history.append(precision)
             print(f"{epoch} epoch: cost {cost}, precision {precision}")
@@ -45,7 +50,6 @@ class Logistic_Regression:
             pickle.dump(self.answer_list, f)
         sns.lineplot({"cost": cost_history, "precision": precision_history})
         plt.show()
-        
         
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
@@ -66,7 +70,7 @@ class Logistic_Regression:
     
     def predict(self, weight, x):
         h = np.array(np.zeros((weight.shape[0], x.shape[1])))
-        h = np.matmul(weight, x).T
+        h = np.matmul(x, weight)
         for i in range(h.shape[0]):
             h[i] = softmax(h[i])
         return h
@@ -102,6 +106,5 @@ class Logistic_Regression:
         for index in range(m):
             answer[index] = self.answer_list[np.argmax(h[index])]
         answer_df = pd.DataFrame({'Index': range(1, m + 1),'Hogwarts House': answer})
-        # answer_df = answer
         print(answer_df)
         answer_df.to_csv(outputfile, index=False)
