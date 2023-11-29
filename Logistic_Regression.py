@@ -56,13 +56,13 @@ class Logistic_Regression:
             precision = self.get_precision(total_z, encoded_y)
             precision_history.append(precision)
             print(f"{epoch} epoch: cost {cost}, precision {precision}")
-        # with open('parameter.pickle', 'wb') as f:
-        #     pickle.dump(self.W, f)
-        #     pickle.dump(self.train_describe, f)
-        #     pickle.dump(self.feature_columns, f)
-        #     pickle.dump(self.answer_list, f)
-        # sns.lineplot({"cost": cost_history, "precision": precision_history})
-        # plt.show()
+        with open('parameter.pickle', 'wb') as f:
+            pickle.dump(self.W, f)
+            pickle.dump(self.train_describe, f)
+            pickle.dump(self.feature_columns, f)
+            pickle.dump(self.answer_list, f)
+        sns.lineplot({"cost": cost_history, "precision": precision_history})
+        plt.show()
         
     def get_scaled_df(self, data, data_description):
         scaled_df = pd.DataFrame(columns=self.feature_columns)
