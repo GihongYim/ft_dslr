@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 def count(col):
     count = 0
     for element in col:
@@ -88,4 +88,19 @@ def freq(col):
             max_element = key
             max_count = dict[key]
     return max_count
+
+def percentile(col, q):
+    col = col.to_numpy()
+    sorted_col = np.sort(col)
+    
+    n = count(sorted_col)
+    index = (n - 1) * q / 100
+    
+    lower_index = int(np.floor(index))
+    fraction = index - lower_index
+        
+    if lower_index >= n - 1:
+        return sorted_col[n - 1]
+    else:
+        return sorted_col[lower_index] + fraction * (sorted_col[lower_index + 1] - sorted_col[lower_index])
 

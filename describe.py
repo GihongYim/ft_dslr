@@ -38,15 +38,15 @@ def describe(df, include='default'):
     statistic_df.loc['min'] = min
     q25 = {}
     for col in numeric_list:
-        q25[col] = np.nanpercentile(df[col], q=25)
+        q25[col] = statistic.percentile(df[col], q=25)
     statistic_df.loc['25%'] = q25
     q50 = {}
     for col in numeric_list:
-        q50[col] = np.nanpercentile(df[col], q=50)
+        q50[col] = statistic.percentile(df[col], q=50)
     statistic_df.loc['50%'] = q50
     q75 = {}
     for col in numeric_list:
-        q75[col] = np.nanpercentile(df[col], q=75)
+        q75[col] = statistic.percentile(df[col], q=75)
     statistic_df.loc['75%'] = q75
     max = {}
     for col in numeric_list:
@@ -73,8 +73,9 @@ def main():
         df = pd.read_csv(sys.argv[1])
     except Exception as e:
         print(f"{e}")
+    print(df.describe())
     print(describe(df))
-    print(describe(df, include='all'))
+    # print(describe(df, include='all'))
     
 
 if __name__ == "__main__":
