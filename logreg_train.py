@@ -1,19 +1,10 @@
 #!/usr/bin/env python3
 
 import sys
-import numpy as np
 import pandas as pd
-import pickle
 from describe import describe
-from normalize import min_max_normalize
-from softmax import softmax
 from statistic import mean
-import math
-import matplotlib.pyplot as plt
-import seaborn as sns
 from Logistic_Regression import Logistic_Regression
-        
-        
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -39,8 +30,7 @@ if __name__ == "__main__":
     for column in feature_columns:
         mean_value = mean(data[column])
         data[column] = data[column].fillna(mean_value)
-            
-            
+
     answer_column = "Hogwarts House"
-    model = Logistic_Regression(data, feature_columns,answer_column)
+    model = Logistic_Regression(data, feature_columns, answer_column)
     model.train()

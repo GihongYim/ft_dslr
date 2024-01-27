@@ -14,7 +14,7 @@ class Logistic_Regression:
         self.data = data
         self.answer_column = answer_column
         self.feature_columns = feature_columns
-        self.answer_list = None 
+        self.answer_list = None
         self.W = None
         self.train_describe = None
 
