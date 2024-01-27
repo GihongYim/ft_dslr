@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 
 import sys
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # feature list
-# Index, (x) : 
+# Index, (x) :
 # Hogwarts House, (x) : answer
-# First Name, (x) 
+# First Name, (x)
 # Last Name, (x)
 # Birthday, (x)
 # Best Hand, (x) almost same
@@ -27,7 +26,6 @@ import seaborn as sns
 # Flying (o)
 
 
-
 def main():
     if len(sys.argv) != 2:
         print("input parameter")
@@ -37,22 +35,25 @@ def main():
     except Exception as e:
         print(e)
         return 
-    hogwart_colors = {'Gryffindor': '#ae0001', 'Slytherin':'#2a623d', 'Ravenclaw': '#222f5b', 'Hufflepuff':'#f0c75e'}
+    hogwart_colors = {'Gryffindor': '#ae0001',
+                      'Slytherin': '#2a623d',
+                      'Ravenclaw': '#222f5b',
+                      'Hufflepuff': '#f0c75e'}
     feature_columns = ["Best Hand",
-            "Arithmancy", 
-            "Astronomy", 
-            "Herbology",
-            "Defense Against the Dark Arts", 
-            "Divination", 
-            "Muggle Studies", 
-            "Ancient Runes", 
-            "History of Magic", 
-            "Transfiguration", 
-            "Potions", 
-            "Care of Magical Creatures",
-            "Charms", 
-            "Flying" 
-    ]
+                       "Arithmancy",
+                       "Astronomy",
+                       "Herbology",
+                       "Defense Against the Dark Arts",
+                       "Divination",
+                       "Muggle Studies",
+                       "Ancient Runes",
+                       "History of Magic",
+                       "Transfiguration",
+                       "Potions",
+                       "Care of Magical Creatures",
+                       "Charms",
+                       "Flying"
+                       ]
     # for name in hogwart_df:
     #     hogwart_df[name] = df[df['Hogwarts House'] == name]
     #     hogwart_df[name] = df[feature_columns]
@@ -64,12 +65,17 @@ def main():
             if row_feature == column_feature:
                 column_index += 1
                 continue
-            sns.scatterplot(data=df, x=column_feature, y=row_feature, hue='Hogwarts House',palette=hogwart_colors,ax=axs[row_index][column_index], legend=False)
+            sns.scatterplot(data=df,
+                            x=column_feature,
+                            y=row_feature,
+                            hue='Hogwarts House',
+                            palette=hogwart_colors,
+                            ax=axs[row_index][column_index],
+                            legend=False)
             column_index += 1
         row_index += 1
     plt.show()
-    
-    
+
 
 if __name__ == "__main__":
     main()

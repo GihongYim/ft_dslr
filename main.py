@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import sys
-import numpy as np
 import pandas as pd
-
 from describe import describe
+
 
 def main():
     try:
@@ -13,7 +12,7 @@ def main():
         print(f"{e}")
     print(df.describe())
     print(describe(df))
-    
+
 
 if __name__ == "__main__":
     main()
