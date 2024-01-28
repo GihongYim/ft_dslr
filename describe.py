@@ -68,13 +68,24 @@ def describe(df, include='default'):
 
 
 def main():
+    if len(sys.argv) != 2:
+        print("check parameter")
+        exit() 
     try:
         df = pd.read_csv(sys.argv[1])
     except Exception as e:
         print(f"{e.__class__.__name__}: {e}")
         exit()
-    print(df.describe())
-    print(describe(df))
+    # origin = df.describe()
+    # for i in range(0, len(origin.columns), 4):
+    #   subset = origin.iloc[:, i:i+2]
+    #   print(subset)
+    #   print()
+    our = describe(df)
+    for i in range(0, len(our.columns), 4):
+      subset = our.iloc[:, i:i+2]
+      print(subset)
+      print()
     # print(describe(df, include='all'))
 
 
