@@ -33,4 +33,4 @@ if __name__ == "__main__":
 
     answer_column = "Hogwarts House"
     model = Logistic_Regression(data, feature_columns, answer_column)
-    model.train()
+    model.train(batch_size=100)

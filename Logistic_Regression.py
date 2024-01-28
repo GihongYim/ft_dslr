@@ -40,14 +40,20 @@ class Logistic_Regression:
                                 len(self.answer_list))
         cost_history = []
         precision_history = []
+        if batch_size < 0:
+            print(f"batch_size {batch_size} is not positive")
+            exit()
         if batch_size == 0:
             batch_size = m
         num_of_batch = m // batch_size
         for epoch in range(1, epochs + 1):
             # iteration for batch
+            index = np.random.permutation(m)
+            shuffle_x = scaled_x[index]
+            shuffle_y = encoded_y[index]
             for i in range(num_of_batch):
-                batch_x = scaled_x[i * batch_size: (i + 1) * batch_size]
-                batch_y = encoded_y[i * batch_size: (i + 1) * batch_size]
+                batch_x = shuffle_x[i * batch_size: (i + 1) * batch_size]
+                batch_y = shuffle_y[i * batch_size: (i + 1) * batch_size]
                 z = self.predict(self.W, batch_x)
                 loss = -1 * batch_y * np.log(z) + (1 - batch_y) * np.log(1 - z)
                 dW = np.matmul((z - batch_y).T, batch_x) / batch_x.shape[0]

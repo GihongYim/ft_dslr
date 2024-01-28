@@ -26,21 +26,21 @@ def main():
               'Slytherin': 'green',
               'Ravenclaw': 'blue',
               'Hufflepuff': 'yellow'}
-    feature_columns = ["Best Hand",
-                       "Arithmancy",
-                       "Astronomy",
-                       "Herbology",
-                       "Defense Against the Dark Arts",
-                       "Divination",
-                       "Muggle Studies",
-                       "Ancient Runes",
-                       "History of Magic",
-                       "Transfiguration",
-                       "Potions",
-                       "Care of Magical Creatures",
-                       "Charms",
-                       "Flying"
-                       ]
+    # feature_columns = ["Best Hand",
+    #                    "Arithmancy",
+    #                    "Astronomy",
+    #                    "Herbology",
+    #                    "Defense Against the Dark Arts",
+    #                    "Divination",
+    #                    "Muggle Studies",
+    #                    "Ancient Runes",
+    #                    "History of Magic",
+    #                    "Transfiguration",
+    #                    "Potions",
+    #                    "Care of Magical Creatures",
+    #                    "Charms",
+    #                    "Flying"
+    #                    ]
     plt.figure('2.1 histogram', figsize=(1800/100, 1200/100), dpi=100)
     for i in range(5, len(df.columns)):
         plt.subplot(4,4,i + 1 - 5)

@@ -36,11 +36,12 @@ def main():
                        ]
     feature_df = df[feature_columns]
     sns.set(font_scale=0.6)
-    sns.pairplot(data=feature_df, plot_kws={'s': 1},
+    sns.pairplot(data=feature_df, plot_kws={'s': 2},
                  hue="Hogwarts House", palette=hogwart_colors,
                  height=1,
                  )
     plt.show()
+
 
 if __name__ == "__main__":
     main()
