@@ -34,7 +34,7 @@ def main():
         df = pd.read_csv(sys.argv[1])
     except Exception as e:
         print(e)
-        return 
+        return
     hogwart_colors = {'Gryffindor': '#ae0001',
                       'Slytherin': '#2a623d',
                       'Ravenclaw': '#222f5b',
@@ -54,9 +54,6 @@ def main():
                        "Charms",
                        "Flying"
                        ]
-    # for name in hogwart_df:
-    #     hogwart_df[name] = df[df['Hogwarts House'] == name]
-    #     hogwart_df[name] = df[feature_columns]
     fig, axs = plt.subplots(len(feature_columns), len(feature_columns))
     row_index, column_index = 0, 0
     for row_feature in feature_columns:

@@ -19,7 +19,6 @@ def main():
 
     print(sys.argv[0])
     df = pd.read_csv(sys.argv[1])
-    # hogwart = ['Gryffindor', 'Slytherin', 'Ravenclaw', 'Hufflepuff']
     colors = {'Gryffindor': 'red',
               'Slytherin': 'green',
               'Ravenclaw': 'blue',
@@ -30,7 +29,7 @@ def main():
                        "Herbology",
                        "Defense Against the Dark Arts",
                        "Divination",
-                       "Muggle Studies"
+                       "Muggle Studies",
                        "Ancient Runes",
                        "History of Magic",
                        "Transfiguration",
@@ -42,13 +41,6 @@ def main():
     fig, axs = plt.subplots(ncols=len(feature_columns))
     index = 0
     for column in feature_columns:
-        # sns.histplot(data=df,
-        #              x=column,
-        #              hue="Hogwarts House",
-        #              palette=colors,
-        #              element='poly',
-        #              ax=axs[index]
-        #              )
         sns.histplot(data=df,
                      x=column,
                      hue="Hogwarts House",

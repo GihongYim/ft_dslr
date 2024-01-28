@@ -12,19 +12,19 @@ if __name__ == "__main__":
         exit(0)
     data = pd.read_csv(sys.argv[1])
     feature_columns = [
-            "Arithmancy", 
-            "Astronomy", 
+            "Arithmancy",
+            "Astronomy",
             "Herbology",
-            "Defense Against the Dark Arts", 
-            "Divination", 
-            "Muggle Studies", 
-            "Ancient Runes", 
-            "History of Magic", 
-            "Transfiguration", 
-            "Potions", 
-            "Care of Magical Creatures",
-            "Charms", 
-            "Flying" 
+            # "Defense Against the Dark Arts",
+            "Divination",
+            "Muggle Studies",
+            "Ancient Runes",
+            "History of Magic",
+            # "Transfiguration",
+            "Potions",
+            # "Care of Magical Creatures",
+            "Charms",
+            "Flying"
         ]
     data_describe = describe(data)
     for column in feature_columns:
