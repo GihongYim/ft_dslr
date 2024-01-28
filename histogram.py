@@ -8,6 +8,9 @@ import seaborn as sns
 
 
 def main():
+    """
+    main function for plotting histogram 
+    """
     if len(sys.argv) == 1:
         print(
             "Please enter your filename -> \

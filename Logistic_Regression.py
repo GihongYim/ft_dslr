@@ -10,6 +10,9 @@ from statistic import mean
 
 
 class Logistic_Regression:
+    """
+    Logistic_Regression class
+    """
     def __init__(self, data=None, feature_columns=None, answer_column=None):
         self.data = data
         self.answer_column = answer_column
@@ -19,7 +22,13 @@ class Logistic_Regression:
         self.train_describe = None
 
     def train(self, epochs=2000, lr=0.01, batch_size=300):
-        # batch_size = 0 -> batch_size = m
+        """_summary_
+        if batch_size = 0, then batch_size = m
+        Args:
+            epochs (int, optional): num of epoch. Defaults to 2000.
+            lr (float, optional): learning rate. Defaults to 0.01.
+            batch_size (int, optional): batch_size. Defaults to 300.
+        """
         train_x = self.data[self.feature_columns]
         m = train_x.shape[0]
         train_y = self.data[self.answer_column]

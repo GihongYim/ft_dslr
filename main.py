@@ -9,7 +9,7 @@ def main():
     try:
         df = pd.read_csv(sys.argv[1])
     except Exception as e:
-        print(f"{e}")
+        print(f"{e.__class__.__name__}: {e}")
     print(df.describe())
     print(describe(df))
 
